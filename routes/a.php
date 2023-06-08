@@ -1,5 +1,7 @@
 <?php
 
-function a( ){
-         echo 'hello';
+declare(strict_types=1);
+function aa(): void
+{
+    echo 'hello';
 }
