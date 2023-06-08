@@ -117,9 +117,6 @@ return $config
         // list_syntax
         'list_syntax' => true,
 
-        // PHP Tag
-        'linebreak_after_opening_tag' => true,
-
         // Import
         'no_unused_imports' => true,
 
@@ -127,7 +124,6 @@ return $config
         'no_leading_namespace_whitespace' => true,
 
         // Language Construct
-        'combine_consecutive_issets' => true,
         'dir_constant' => true,
         'explicit_indirect_variable' => true,
         'function_to_constant' => true,
@@ -145,7 +141,6 @@ return $config
         'self_accessor' => true,
 
         // Function Notation
-        'function_typehint_space' => true,
         'return_type_declaration' => ['space_before' => 'none'],
         'void_return' => true,
 
@@ -158,9 +153,6 @@ return $config
         'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
         'no_unneeded_control_parentheses' => true,
         'no_unneeded_curly_braces' => true,
-
-        // Naming
-        'no_homoglyph_names' => true,
 
         // PHPUnit
         'php_unit_construct' => true,
