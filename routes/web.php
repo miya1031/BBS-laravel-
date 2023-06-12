@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+declare(strict_types=1);
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\FormController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', fn () => view('index'));
+Route::get('/queryString', [FormController::class, 'queryString']);
+
+Route::get('/hello_world', fn () => view('helloworld', ['name'=>'三宅']));
+
+Route::get('/profile/{id}', [FormController::class, 'profile']);

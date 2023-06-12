@@ -10,6 +10,7 @@ $finder = PhpCsFixer\Finder::create()
         __DIR__ . '/database/seeders',
         __DIR__ . '/routes',
         __DIR__ . '/tests',
+        __DIR__ . '/resources',
     ]);
 
 $config = new PhpCsFixer\Config();
@@ -158,5 +159,3 @@ return $config
         'php_unit_construct' => true,
         'php_unit_dedicate_assert' => true,
     ]);
-
-
