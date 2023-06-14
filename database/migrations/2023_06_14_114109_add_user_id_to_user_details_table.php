@@ -12,7 +12,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('icons', function (Blueprint $table): void {
+        Schema::table('user_details', function (Blueprint $table): void {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
@@ -22,8 +22,8 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::table('icons', function (Blueprint $table): void {
-            $table->dropForeign('icons_user_id_foreign');
+        Schema::table('user_details', function (Blueprint $table): void {
+            $table->dropForeign('user_details_user_id_foreign');
             $table->dropColumn('user_id');
         });
     }
