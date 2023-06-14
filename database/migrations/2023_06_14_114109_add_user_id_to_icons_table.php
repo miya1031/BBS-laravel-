@@ -23,6 +23,7 @@ return new class () extends Migration {
     public function down(): void
     {
         Schema::table('icons', function (Blueprint $table): void {
+            $table->dropForeign('icons_user_id_foreign');
             $table->dropColumn('user_id');
         });
     }

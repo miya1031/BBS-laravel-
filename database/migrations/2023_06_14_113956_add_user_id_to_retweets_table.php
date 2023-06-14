@@ -23,6 +23,7 @@ return new class () extends Migration {
     public function down(): void
     {
         Schema::table('retweets', function (Blueprint $table): void {
+            $table->dropForeign('retweets_user_id_foreign');
             $table->dropColumn('user_id');
         });
     }

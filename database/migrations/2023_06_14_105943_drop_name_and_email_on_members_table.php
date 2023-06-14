@@ -12,7 +12,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('icons', function (Blueprint $table): void {
+        Schema::table('members', function (Blueprint $table): void {
             $table->dropColumn(['name', 'email']);
         });
     }
@@ -22,7 +22,7 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::table('icons', function (Blueprint $table): void {
+        Schema::table('members', function (Blueprint $table): void {
             $table->string('name');
             $table->string('email')->unique();
         });

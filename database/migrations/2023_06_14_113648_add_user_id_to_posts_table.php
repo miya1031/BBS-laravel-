@@ -23,6 +23,7 @@ return new class () extends Migration {
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table): void {
+            $table->dropForeign('posts_user_id_foreign');
             $table->dropColumn('user_id');
         });
     }
