@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
@@ -26,7 +28,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'icon' =>[
                 File::types(['gif','jpg'])
