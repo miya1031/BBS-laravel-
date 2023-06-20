@@ -42,4 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function emailExists(string $email)
+    {
+        $emailExists = self::query()
+            ->where('email', '=', $email)
+            ->exists();
+        return $emailExists;
+    }
 }

@@ -14,8 +14,8 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Http\Requests\RegisterRequest;
 use App\Models\UserDetail;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
-
 
 
 class RegisteredUserController extends Controller
@@ -37,8 +37,11 @@ class RegisteredUserController extends Controller
     {
         $validated = $request->validated();
         
-        if(User::where('email', $validated['email'])->exists()){
-            return redirect()->back()->with('message', '既に登録されているメールアドレスです');
+        $User = User::find(1);
+        if ($User->emailExists($validated['email'])){
+            throw ValidationException::withMessages([
+                'email' => ['既に登録されているメールアドレスです。'],
+            ]);
         }
 
         $user = User::create([
