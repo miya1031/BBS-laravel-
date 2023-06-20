@@ -52,7 +52,7 @@ class RegisteredUserController extends Controller
         //iconを登録した場合
         if ($request->file('icon') !== null){
             $userDetails = new UserDetail();
-            $userDetails->icon = basename($request->file('icon')->store('icons', 'public'));
+            $userDetails->icon = $request->file('icon')->store('icons', 'public');
             $userDetails->user_id = $user->id;
             $userDetails->save();
         }
