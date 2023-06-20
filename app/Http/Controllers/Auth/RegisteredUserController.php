@@ -51,12 +51,10 @@ class RegisteredUserController extends Controller
         ]);
         //iconを登録した場合
         if ($request->file('icon') !== null){
-            $icon = new UserDetail();
-            $icon->icon = basename($request->file('icon')->store('icons', 'public'));
-            //Userテーブルからidを検索
-            $user_id = User::where('email', $validated['email'])->first();
-            $icon->user_id = $user_id->id;
-            $icon->save();
+            $userDetails = new UserDetail();
+            $userDetails->icon = basename($request->file('icon')->store('icons', 'public'));
+            $userDetails->user_id = $user->id;
+            $userDetails->save();
         }
 
         event(new Registered($user));
