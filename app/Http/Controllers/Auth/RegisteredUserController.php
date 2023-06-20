@@ -37,8 +37,8 @@ class RegisteredUserController extends Controller
     {
         $validated = $request->validated();
         
-        $User = User::find(1);
-        if ($User->emailExists($validated['email'])){
+        $user = new User;
+        if ($user->emailExists($validated['email'])){
             throw ValidationException::withMessages([
                 'email' => ['既に登録されているメールアドレスです。'],
             ]);
@@ -51,10 +51,8 @@ class RegisteredUserController extends Controller
         ]);
         //iconを登録した場合
         if ($request->file('icon') !== null){
-            $userDetails = new UserDetail();
-            $userDetails->icon = $request->file('icon')->store('icons', 'public');
-            $userDetails->user_id = $user->id;
-            $userDetails->save();
+            $icon = new UserDetail(['icon' => $request->file('icon')->store('icons', 'public')]);
+            $user->userDetail()->save($icon);
         }
 
         event(new Registered($user));

@@ -49,4 +49,9 @@ class User extends Authenticatable
             ->exists();
         return $emailExists;
     }
+
+    public function userDetail()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
 }
