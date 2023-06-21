@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserDetail;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -51,7 +52,7 @@ class User extends Authenticatable
         return $emailExists;
     }
 
-    public function userDetail(): object
+    public function userDetail(): HasOne
     {
         return $this->hasOne(UserDetail::class);
     }
