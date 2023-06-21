@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Http\Requests\RegisterRequest;
+use App\Models\UserDetail;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
+
 
 class RegisteredUserController extends Controller
 {
@@ -28,19 +33,26 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(RegisterRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $validated = $request->validated();
+        
+        if (User::emailExists($validated['email'])){
+            throw ValidationException::withMessages([
+                'email' => ['既に登録されているメールアドレスです。'],
+            ]);
+        }
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
         ]);
+        //iconを登録した場合
+        if ($request->file('icon') !== null){
+            $icon = new UserDetail(['icon' => $request->file('icon')->store('icons', 'public')]);
+            $user->userDetail()->save($icon);
+        }
 
         event(new Registered($user));
 
