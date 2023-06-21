@@ -37,8 +37,7 @@ class RegisteredUserController extends Controller
     {
         $validated = $request->validated();
         
-        $user = new User;
-        if ($user->emailExists($validated['email'])){
+        if (User::emailExists($validated['email'])){
             throw ValidationException::withMessages([
                 'email' => ['既に登録されているメールアドレスです。'],
             ]);

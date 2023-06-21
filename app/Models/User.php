@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\UserDetail;
 
 class User extends Authenticatable
 {
@@ -42,7 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function emailExists(string $email): bool
+    public static function emailExists(string $email): bool
     {
         $emailExists = self::query()
             ->where('email', '=', $email)
@@ -50,7 +51,7 @@ class User extends Authenticatable
         return $emailExists;
     }
 
-    public function userDetail()
+    public function userDetail(): object
     {
         return $this->hasOne(UserDetail::class);
     }
