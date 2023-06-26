@@ -60,7 +60,7 @@ class PostController extends Controller
         ]);
 
         //RegisteredUserControllerと同様にProviderを用いた方が良いか?
-        return redirect()->route('posts');
+        return redirect()->route('posts.index');
     }
 
     /**
