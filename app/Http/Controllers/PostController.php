@@ -22,12 +22,12 @@ class PostController extends Controller
         //ここでアイコンも結合した方が良いか？リレーションを使っても取得できそうだが、クエリ実行回数を考えると、、
         //user
         $posts = DB::table('users')
-            ->join('user_details', 'users.id', '=', 'user_details.user_id')
+            ->leftJoin('user_details', 'users.id', '=', 'user_details.user_id')
             ->join('posts', 'users.id', '=', 'posts.user_id')
             ->select('users.id as id', 'users.name as name', 'user_details.icon as icon', 'posts.id as post_id', 'posts.message as message', 'posts.reply_post_id as reply_post_id', 'posts.created_at as created_at', 'posts.created_at as show_time', DB::raw('null as retweet_name'));
 
         $retweetPosts = DB::table('users')
-            ->join('user_details', 'users.id', '=', 'user_details.user_id')
+            ->leftJoin('user_details', 'users.id', '=', 'user_details.user_id')
             ->join('posts', 'users.id', '=', 'posts.user_id')
             ->join('retweets', 'posts.id', '=', 'retweets.post_id')
             ->join('users as u', 'u.id', '=', 'retweets.user_id')
