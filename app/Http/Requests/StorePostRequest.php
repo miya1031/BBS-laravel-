@@ -23,7 +23,7 @@ class StorePostRequest extends FormRequest
     {
         //文字数を制限した方が良いか?
         return [
-            'message' => ['required'],
+            'message' => ['required', 'string'],
         ];
     }
 }
