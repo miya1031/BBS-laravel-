@@ -1,7 +1,7 @@
 @props(['icon', 'id'])
 <header class='navbar bg-primary'>
     <div class='flex-1'>
-        <a href="{{ route('posts') }}"><h1 class="p-4 text-3xl font-bold text-white">ひとこと掲示板</h1></a>
+        <a href="{{ route('posts.index') }}"><h1 class="p-4 text-3xl font-bold text-white">ひとこと掲示板</h1></a>
     </div>
     <div class="flex-none">
         <div class="dropdown dropdown-end">
