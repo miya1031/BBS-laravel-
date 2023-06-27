@@ -18,12 +18,22 @@
                     </div>
                 </label>
             @endisset
-            <ul tabindex="0" class='mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-200 rounded-box w-52'>
+            <ul tabindex="0" class='mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-200 rounded-box w-52 relative'>
                 <li>
                     <a href="">マイページ</a>
                 </li>
                 <li>
-                    <a href="">ログアウト</a>
+                    <form method="POST" action="{{ route('logout') }}" class="py-4">
+                        @csrf
+                        
+                        <x-dropdown-link-daisyui
+                            :href="route('logout')"
+                            onclick="event.preventDefault();
+                                            this.closest('form').submit();"
+                        >
+                            {{ __('Log out') }}
+                        </x-dropdown-link-daisyui>
+                    </form>
                 </li>
                 <li>
                     <a href="">退会</a>
