@@ -36,7 +36,7 @@ class PostController extends Controller
         $shownPosts = $posts->union($retweetPosts)->orderBy('show_time', 'desc')->simplePaginate(5);
 
 
-        return view('posts.postList', ['shownPosts' => $shownPosts]);
+        return view('posts.index', ['shownPosts' => $shownPosts]);
     }
 
     /**
