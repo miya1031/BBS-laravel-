@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Post;
-use App\Models\User;
-use App\Models\UserDetail;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -37,9 +35,8 @@ class PostController extends Controller
 
         $shownPosts = $posts->union($retweetPosts)->orderBy('show_time', 'desc')->simplePaginate(5);
 
-        //認証済みユーザのアイコンを取得。ヘッダーでのアイコン表示に用いる。
-        $myIcon = Auth::user()->userDetail->icon;
-        return view('posts.index', ['shownPosts' => $shownPosts, 'myIcon' =>$myIcon]);
+
+        return view('posts.postList', ['shownPosts' => $shownPosts]);
     }
 
     /**
