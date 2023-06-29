@@ -7,7 +7,7 @@
                 <!-- Message -->
                 <div>
                     <x-input-label class="p-4" for="message" :value="__('Message')" />
-                    <x-textarea-input id="message" placeholder="メッセージ" type="text" name="message" :value="old('message')" required />
+                    <x-textarea-input-reply id="message" placeholder="メッセージ" type="text" name="message" :value="old('message')" required></x-textarea-input-reply>
                     <x-input-error :messages="$errors->get('message')" class="mt-2" />
                 </div>
                 <div class="flex items-center justify-center mt-4">
