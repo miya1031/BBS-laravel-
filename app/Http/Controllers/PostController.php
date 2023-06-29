@@ -55,22 +55,16 @@ class PostController extends Controller
     {
         $validated = $request->validated();
         
-        if (empty($request->input('replyPostId'))){
-            $replyPostId = null;
-        } else{
-            //返信先のpost_idが存在しない場合
-            if (!Post::idExists($request->input('replyPostId'))){
-                throw ValidationException::withMessages([
-                    'replyPostId' => ['存在しない投稿に返信しようとしています。'],
-                ]);
-            }
-            $replyPostId = $request->input('replyPostId');
+        if (!(empty($validated['replyPostId']) or Post::idExists($validated['replyPostId']))){
+            throw ValidationException::withMessages([
+                'replyPostId' => ['存在しない投稿に返信しようとしています。'],
+            ]);
         }
         
         $post = Post::create([
             'user_id' => Auth::id(),
             'message' => $validated['message'],
-            'reply_post_id' => $replyPostId
+            'reply_post_id' => $validated['replyPostId']
         ]);
 
         //RegisteredUserControllerと同様にProviderを用いた方が良いか?
