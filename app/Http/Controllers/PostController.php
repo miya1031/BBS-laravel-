@@ -11,6 +11,7 @@ use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
 {
@@ -53,10 +54,23 @@ class PostController extends Controller
     public function store(StorePostRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-
+        
+        if (empty($request->input('replyPostId'))){
+            $replyPostId = null;
+        } else{
+            //返信先のpost_idが存在しない場合
+            if (!Post::idExists($request->input('replyPostId'))){
+                throw ValidationException::withMessages([
+                    'replyPostId' => ['存在しない投稿に返信しようとしています。'],
+                ]);
+            }
+            $replyPostId = $request->input('replyPostId');
+        }
+        
         $post = Post::create([
             'user_id' => Auth::id(),
             'message' => $validated['message'],
+            'reply_post_id' => $replyPostId
         ]);
 
         //RegisteredUserControllerと同様にProviderを用いた方が良いか?
