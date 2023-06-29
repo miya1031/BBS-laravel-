@@ -63,10 +63,7 @@
                             </div>
                             <div class='flex flex-col w-1/5 h-32'>
                                 <div class='h-1/3'>
-                                    <input type="hidden" name="replyPostId" id="replyPostId{{ $post->post_id }}" value="{{ $post->post_id }}">
-                                    <input type="hidden" name="replyName" id="replyName{{ $post->name }}" value="{{ $post->name }}">
-                                    <button class="badge badge-primary" id="reply" onclick='changeToReply("replyPostId{{ $post->post_id }}", "replyName{{ $post->name }}")'>返信</button>
-                                    
+                                    <button class="badge badge-primary" id="reply" onclick='changeToReply("{{ $post->post_id }}", "{{ $post->name }}")'>返信</button>
                                 </div>
                             </div>
                         </div>
@@ -77,14 +74,10 @@
     </div>
     {{ $shownPosts->links() }}
     <script>
-        function changeToReply(idReplyPostId, idReplyName) {
-            const replyPostId = document.getElementById(idReplyPostId).value;
-            const replyName = document.getElementById(idReplyName).value;
+        function changeToReply(replyPostId, replyName) {
             document.getElementById('message').textContent = '@' + replyName;
-
             const hiddenField = document.getElementById('replyPostId');
-
-            hiddenField.value = replyPostId
+            hiddenField.value = replyPostId;
 
         }
     </script>
