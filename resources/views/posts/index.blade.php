@@ -15,6 +15,7 @@
                         {{ __('Post') }}
                     </x-primary-button>
                 </div>
+                <input type="hidden" name="replyPostId" id="replyPostId">
             </form>
         </div>
         <div class='w-full xl:w-1/2 border-y border-b-0 border-gray-200 xl:border-t-0'>
@@ -75,4 +76,16 @@
         </div>
     </div>
     {{ $shownPosts->links() }}
+    <script>
+        function changeToReply(idReplyPostId, idReplyName) {
+            var replyPostId = document.getElementById(idReplyPostId).value;
+            var replyName = document.getElementById(idReplyName).value;
+            document.getElementById('message').textContent = '@' + replyName;
+
+            const hiddenField = document.getElementById('replyPostId');
+
+            hiddenField.value = replyPostId
+
+        }
+    </script>
 </x-common-layout>
