@@ -61,6 +61,12 @@
                                     </div>
                             </div>
                             <div class='flex flex-col w-1/5 h-32'>
+                                <div class='h-1/3'>
+                                    <input type="hidden" name="replyPostId" id="replyPostId{{ $post->post_id }}" value="{{ $post->post_id }}">
+                                    <input type="hidden" name="replyName" id="replyName{{ $post->name }}" value="{{ $post->name }}">
+                                    <button class="badge badge-primary" id="reply" onclick='changeToReply("replyPostId{{ $post->post_id }}", "replyName{{ $post->name }}")'>返信</button>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
