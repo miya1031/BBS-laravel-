@@ -15,7 +15,7 @@
     <label tabindex="0" class='dropdown-content'>
         <div class='card w-96 bg-base-100 shadow-xl'>
             @isset($icon)
-                <figure><img src="storage/{{ $icon }}" alt="アイコン画像"></figure>
+                <figure><img src="{{ asset('storage/'.$icon) }}" alt="アイコン画像"></figure>
             @else
                 <figure class='p-10'><span class="bg-primary text-primary-content text-3xl p-10">no<br>image</span></figure>
             @endisset
