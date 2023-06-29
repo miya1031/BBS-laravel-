@@ -15,7 +15,7 @@
         @vite('resources/css/app.css')
     </head>
     <body>
-        <x-header></x-header>
+        <x-header :icon="$icon"></x-header>
         <main>
             <div>
                 {{ $slot }}

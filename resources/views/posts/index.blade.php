@@ -1,4 +1,9 @@
+@props(['myIcon', "shownPosts"])
+
 <x-common-layout>
+    <x-slot:icon>
+        {{ $myIcon }}
+    </x-slot:icon>
     <div class='flex flex-col xl:flex-row justify-center text-center border-y w-full border-gray-200'>
         <div class='w-full xl:w-1/2 border-x border-l-0 border-gray-200'>
             <form action="{{ route('posts.store') }}" method="post">
