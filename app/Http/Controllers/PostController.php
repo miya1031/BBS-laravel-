@@ -55,7 +55,7 @@ class PostController extends Controller
     {
         $validated = $request->validated();
         
-        if (!(empty($validated['replyPostId']) or Post::idExists($validated['replyPostId']))){
+        if (!(empty($validated['replyPostId']) || Post::idExists($validated['replyPostId']))){
             throw ValidationException::withMessages([
                 'replyPostId' => ['存在しない投稿に返信しようとしています。'],
             ]);
