@@ -4,7 +4,7 @@
     <label tabindex="0">
         @isset($icon)
             <div class="w-16 md:w-24 rounded">
-                <img src="storage/{{ $icon }}" alt="アイコン画像">
+                <img src="{{ asset('storage/'.$icon) }}" alt="アイコン画像">
             </div>
         @else
             <div class="bg-primary text-primary-content w-16 h-16 md:w-24 md:h-24 rounded">

@@ -8,7 +8,7 @@
             @isset($icon)
                 <label tabindex="0" class="avatar">
                     <div class="w-16 rounded">
-                        <img src="storage/{{ $icon }}" alt="アイコン画像">
+                        <img src={{ asset('storage/'.$icon) }} alt="アイコン画像">
                     </div>
                 </label>
             @else
