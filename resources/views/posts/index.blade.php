@@ -78,8 +78,8 @@
     {{ $shownPosts->links() }}
     <script>
         function changeToReply(idReplyPostId, idReplyName) {
-            var replyPostId = document.getElementById(idReplyPostId).value;
-            var replyName = document.getElementById(idReplyName).value;
+            const replyPostId = document.getElementById(idReplyPostId).value;
+            const replyName = document.getElementById(idReplyName).value;
             document.getElementById('message').textContent = '@' + replyName;
 
             const hiddenField = document.getElementById('replyPostId');
