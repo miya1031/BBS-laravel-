@@ -12,7 +12,7 @@
                 <!-- Message -->
                 <div>
                     <x-input-label class="p-4" for="message" :value="__('Message')" />
-                    <x-textarea-input id="message" placeholder="メッセージ" type="text" name="message" :value="old('message')" required />
+                    <x-textarea-input id="message" placeholder="メッセージ" type="text" name="message" :value="old('message')" required></x-textarea-input>
                     <x-input-error :messages="$errors->get('message')" class="mt-2" />
                 </div>
                 <div class="flex items-center justify-center mt-4">
@@ -20,6 +20,7 @@
                         {{ __('Post') }}
                     </x-primary-button>
                 </div>
+                <input type="hidden" name="replyPostId" id="replyPostId">
             </form>
         </div>
         <div class='w-full xl:w-1/2 border-y border-b-0 border-gray-200 xl:border-t-0'>
@@ -66,6 +67,9 @@
                                     </div>
                             </div>
                             <div class='flex flex-col w-1/5 h-32'>
+                                <div class='h-1/3'>
+                                    <button class="badge badge-primary" id="reply" onclick='changeToReply("{{ $post->post_id }}", "{{ $post->name }}")'>返信</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,4 +78,12 @@
         </div>
     </div>
     {{ $shownPosts->links() }}
+    <script>
+        function changeToReply(replyPostId, replyName) {
+            document.getElementById('message').textContent = '@' + replyName;
+            const hiddenField = document.getElementById('replyPostId');
+            hiddenField.value = replyPostId;
+
+        }
+    </script>
 </x-common-layout>

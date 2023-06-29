@@ -25,4 +25,12 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function idExists(string $id): bool
+    {
+        $idExists = self::query()
+            ->where('id', '=', $id)
+            ->exists();
+        return $idExists;
+    }
 }
