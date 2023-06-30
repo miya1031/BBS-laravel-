@@ -70,6 +70,15 @@
                                 <div class='h-1/3'>
                                     <button class="badge badge-primary" id="reply" onclick='changeToReply("{{ $post->post_id }}", "{{ $post->name }}")'>返信</button>
                                 </div>
+                                <div class='h-1/3'>
+                                    @if ($post->id == $myId)
+                                        <form action="{{ route('posts.destroy', ['post' => $post->post_id]) }}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="badge badge-primary" id="destroy" type='submit'>削除</button>
+                                        </form>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
