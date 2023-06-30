@@ -103,7 +103,26 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      * @param string $id
      */
-    public function destroy(string $id): void
+    public function destroy(string $id): RedirectResponse
     {
+        //$idが存在するか/削除権限があるかバリデーション
+        if (!Post::idExists($id)){
+            throw ValidationException::withMessages([
+                'postId' => ['この投稿は存在しません。'],
+            ]);
+        }
+        $post = Post::find($id);
+        $AuthId = Auth::user()->id;
+        $postUserId = $post->user_id;
+        if ($AuthId != $postUserId){
+            throw ValidationException::withMessages([
+                'AuthId' => ['権限がありません。'],
+            ]);
+        }
+
+        $post->delete();
+
+        return redirect()->route('posts.index');
+
     }
 }
