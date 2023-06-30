@@ -38,9 +38,9 @@ class PostController extends Controller
 
         $shownPosts = $posts->union($retweetPosts)->orderBy('show_time', 'desc')->simplePaginate(5);
 
-        //認証済みユーザのアイコンを取得。ヘッダーでのアイコン表示に用いる。
-        $myIcon = Auth::user()->userDetail->icon;
-        return view('posts.index', ['shownPosts' => $shownPosts, 'myIcon' =>$myIcon]);
+        //認証済みユーザのユーザインスタンスを取得。アイコンはヘッダーでのアイコン表示に用いる。IDは削除ボタンの表示有無に用いる。
+        $authUser = Auth::user();
+        return view('posts.index', ['shownPosts' => $shownPosts, 'authUser' => $authUser]);
     }
 
     /**
@@ -103,7 +103,17 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      * @param string $id
      */
-    public function destroy(string $id): void
+    public function destroy(string $id): RedirectResponse
     {
+        //$idが存在するか/削除権限があるか
+        $post = Post::findOrFail($id);
+        if (Auth::user()->id !== $post->user_id){
+            abort(403);
+        }
+
+        $post->delete();
+
+        return redirect()->route('posts.index');
+
     }
 }

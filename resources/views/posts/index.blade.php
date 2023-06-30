@@ -1,8 +1,8 @@
-@props(['myIcon', "shownPosts"])
+@props(['authUser', "shownPosts"])
 
 <x-common-layout>
     <x-slot:icon>
-        {{ $myIcon }}
+        {{ $authUser->userdetail->icon }}
     </x-slot:icon>
     <div class='flex flex-col xl:flex-row justify-center text-center border-y w-full border-gray-200'>
         <div class='w-full xl:w-1/2 border-x border-l-0 border-gray-200'>
@@ -69,6 +69,15 @@
                             <div class='flex flex-col w-1/5 h-32'>
                                 <div class='h-1/3'>
                                     <button class="badge badge-primary" id="reply" onclick='changeToReply("{{ $post->post_id }}", "{{ $post->name }}")'>返信</button>
+                                </div>
+                                <div class='h-1/3'>
+                                    @if ($post->id === $authUser->id)
+                                        <form action="{{ route('posts.destroy', ['post' => $post->post_id]) }}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="badge badge-primary" id="destroy" type='submit'>削除</button>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>
