@@ -38,11 +38,9 @@ class PostController extends Controller
 
         $shownPosts = $posts->union($retweetPosts)->orderBy('show_time', 'desc')->simplePaginate(5);
 
-        //認証済みユーザのアイコンとIDを取得。アイコンはヘッダーでのアイコン表示に用いる。IDは削除ボタンの表示有無に用いる。
-        $auth = Auth::user();
-        $myIcon = $auth->userDetail->icon;
-        $myId = $auth->id;
-        return view('posts.index', ['shownPosts' => $shownPosts, 'myIcon' =>$myIcon, 'myId' =>$myId]);
+        //認証済みユーザのユーザインスタンスを取得。アイコンはヘッダーでのアイコン表示に用いる。IDは削除ボタンの表示有無に用いる。
+        $authUser = Auth::user();
+        return view('posts.index', ['shownPosts' => $shownPosts, 'authUser' => $authUser]);
     }
 
     /**
