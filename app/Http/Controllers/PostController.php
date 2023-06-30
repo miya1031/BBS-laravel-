@@ -105,11 +105,8 @@ class PostController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        //$idが存在するか/削除権限があるかバリデーション
-        if (!Post::idExists($id)){
-            abort(404);
-        }
-        $post = Post::find($id);
+        //$idが存在するか/削除権限があるか
+        $post = Post::findOrFail($id);
         if (Auth::user()->id !== $post->user_id){
             abort(403);
         }
