@@ -109,17 +109,11 @@ class PostController extends Controller
     {
         //$idが存在するか/削除権限があるかバリデーション
         if (!Post::idExists($id)){
-            throw ValidationException::withMessages([
-                'postId' => ['この投稿は存在しません。'],
-            ]);
+            abort(404);
         }
         $post = Post::find($id);
-        $AuthId = Auth::user()->id;
-        $postUserId = $post->user_id;
-        if ($AuthId != $postUserId){
-            throw ValidationException::withMessages([
-                'AuthId' => ['権限がありません。'],
-            ]);
+        if (Auth::user()->id !== $post->user_id){
+            abort(403);
         }
 
         $post->delete();
